@@ -1,0 +1,4 @@
+<?php
+define('BASE_PATH', __DIR__);
+define('ABSOLUTE_PATH', '/Practice_with_PHP/');
+define('DS', DIRECTORY_SEPARATOR);

@@ -1,0 +1,39 @@
+<?php
+	function bss_asset($url, $type = ''){
+		return ABSOLUTE_PATH . 'asset/' . ($type?("{$type}/"):'') . $url;
+	}
+	function bss_lib($url, $type = ''){
+		return ABSOLUTE_PATH . 'lib/' . ($type?("{$type}/"):'') . $url;
+	}
+	function bss_get_style($urls){
+		if($urls && !is_array($urls)) $urls = [$urls];
+		foreach ($urls as $key => $url) {
+			echo '<link href="' . bss_asset($url, is_string($key) ? $key : 'css') . '" rel="stylesheet">';
+		}
+		unset($urls);
+	}
+	function bss_get_script($urls){
+		if($urls && !is_array($urls)) $urls = [$urls];
+		foreach ($urls as $key => $url) {
+			echo '<script src="' . bss_asset($url, is_string($key) ? $key : 'js') . '"></script>';
+		}
+		unset($urls);
+	}
+	function bss_include($urls, $segment = '', $extra_js = []){
+		if($urls && !is_array($urls)) $urls = [$urls];
+		if(sizeof($extra_js) && is_array($extra_js)) $urls = array_merge($urls, $extra_js);
+		foreach ($urls as $key => $url) {
+			include_once BASE_PATH . ($segment ? $segment : '') .  $url;
+		}
+		unset($urls, $extra_js);
+	}
+	function bss_include_layout($urls, $extra_js = []){
+		bss_include($urls,'admin/layout/', $extra_js);
+		unset($urls, $extra_js);
+	}
+	function bss_link_admin($url){
+		echo bss_path('admin/' . $url);
+	}
+	function bss_path($url){
+		return ABSOLUTE_PATH . $url;
+	}

@@ -1,0 +1,23 @@
+           </div>
+            <div class="footer">
+                <div class="float-right">
+                    10GB of <strong>250GB</strong> Free.
+                </div>
+                <div>
+                    <strong>Copyright</strong> Example Company &copy; 2014-2018
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+    <?php bss_get_script(['jquery-3.1.1.min.js', 'popper.min.js', 'bootstrap.js', 'plugins/metisMenu/jquery.metisMenu.js', 'plugins/slimscroll/jquery.slimscroll.min.js', 'inspinia.js', 'plugins/pace/pace.min.js']); ?>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            if (typeof endLoadjs == 'function') endLoadjs();
+        })
+    </script>
+</body>
+
+</html>

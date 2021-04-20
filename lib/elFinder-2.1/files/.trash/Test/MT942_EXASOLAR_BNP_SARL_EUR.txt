@@ -1,0 +1,102 @@
+{1:F01BNPAFRPPXXXX0000000000}{2:I942BNPAFRPPXXXXN0000}{4:
+:20:H271801318501774
+:25:FR7630004000120001546000133
+:28C:00366/00001
+:34F:EUR0,
+:13D:1405271801+0200
+:61:1405280528C11927,39NTRF)V.SG8902605//140528
+:86:/TYPE/0558/VIREMENT RECU TIERS/CODE/FR/18/
+1300030317500020204308MBDA FRANCE )V.SG8902605 ZZ0UUEI
+:90D:0EUR0,
+:90C:1EUR11927,39
+-}{5:}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {1:F01BNPAFRPPXXXX0000000000}{2:I942BNPAFRPPXXXXN0000}{4:
+:20:H271801318501775
+:25:FR7630004000120001546000133
+:28C:00380/00001
+:34F:EUR0,
+:13D:1405271801+0200
+:61:1405280527C322,83NCLRNONREF//150821
+:86:/TYPE/0151/REMISE CHEQUES/CODE/FR/02/
+BORDEREAU N 02040655
+:90D:0EUR0,
+:90C:1EUR322,83
+-}{5:}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            {1:F01BNPAFRPPXXXX0000000000}{2:I942BNPAFRPPXXXXN0000}{4:
+:20:H271801318501776
+:25:FR7630004000120001546000133
+:28C:00149/00001
+:34F:EUR0,
+:13D:1405271801+0200
+:61:1405300530D112246,74NDDTNONREF//150821
+:86:/test_intraday_swift_ssu
+:90D:1EUR112246,74
+:90C:0EUR0,
+-}{5:}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 {1:F01BNPAFRPPXXXX0000000000}{2:I942BNPAFRPPXXXXN0000}{4:
+:20:H271801318501777
+:25:FR7630004000120001546000133
+:28C:00282/00001
+:34F:EUR0,
+:13D:1405271801+0200
+:61:1405270527C18990,NTRFVIREMENT 150821//150821
+:86:/TYPE/0568/VIR EUROPEEN SEPA RECU/CODE/FR/18/REMI/FACTURE FVE1404
+77?478?479?480?482/EREF/VIREMENT 26052014-171917 000001/ORDP//NAM
+E/CORSE ETUDE INGENIERIE
+:90D:0EUR0,
+:90C:1EUR18990,
+-}{5:}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               {1:F01BNPAFRPPXXXX0000000000}{2:I942BNPAFRPPXXXXN0000}{4:
+:20:H271801318501778
+:25:FR7630004000120001546000133
+:28C:00132/00001
+:34F:EUR0,
+:13D:1405271801+0200
+:61:1405280528C12000,NTRF)V.SG8902612//150821
+:86:/TYPE/0558/VIREMENT RECU TIERS/CODE/FR/18/
+1300030317500020204308MBDA FRANCE )V.SG8902612 ZZ0UUEI
+:90D:0EUR0,
+:90C:1EUR12000,
+-}{5:}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               {1:F01BNPAFRPPXXXX0000000000}{2:I942BNPAFRPPXXXXN0000}{4:
+:20:H271801318501779
+:25:FR7630004000120001546000133
+:28C:00298/00001
+:34F:EUR0,
+:13D:1405271801+0200
+:61:1405270527C14868,NTRFNONREF//150821
+:86:/TYPE/0558/VIREMENT RECU TIERS/CODE/FR/18/
+C.I.B. (CORP INVEST BANK 05 2705 02 1328 00002 20 0 A
+:61:1405270527D323,96NTRFZZ0UUEZ//150821
+VIR EUROPEEN SEPA EMIS
+:86:/TYPE/0529/VIR EUROPEEN SEPA EMIS/CODE/FR/21/
+:61:1405300530D1014,NDDTNONREF//150821
+:86:/TYPE/0813/PRLV EUROPEEN SEPA/CODE/FR/B1/EREF/BOONDMANAGER87FAS14
+1803/BENM//NAME/WISH/CSID/FR15ZZZ566608/MARF/120410FAS272/SEQT/RC
+UR
+:90D:2EUR1337,96
+:90C:1EUR14868,
+-}{5:}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {1:F01BNPAFRPPXXXX0000000000}{2:I942BNPAFRPPXXXXN0000}{4:
+:20:H271801318501780
+:25:FR7630004000120001546000133
+:28C:00223/00001
+:34F:EUR0,
+:13D:1405271801+0200
+:61:1405270527C11844,NTRF573473 20150821//150821
+:86:/TYPE/0568/VIR EUROPEEN SEPA RECU/CODE/FR/18/REMI/PRESTATIONS L.
+ARMANGAU/EREF/573473-20140527-000031318/ORDP//NAME/CA TECHNOLOGIE
+S/IREF/CAT-573473-20140527-000031318
+:61:1405270527C9462,NTRF573473 20150821//150821
+:86:/TYPE/0568/VIR EUROPEEN SEPA RECU/CODE/FR/18/REMI/PRESTATIONS L.
+RINALDI/EREF/573473-20140527-000031315/ORDP//NAME/CA TECHNOLOGIES
+/IREF/CAT-573473-20140527-000031315
+:61:1405270527C10458,NTRF573473 20150821//150821
+:86:/TYPE/0568/VIR EUROPEEN SEPA RECU/CODE/FR/18/REMI/PRESTATIONS A.
+BOYRON/EREF/573473-20140527-000031316/ORDP//NAME/CA TECHNOLOGIES/
+IREF/CAT-573473-20140527-000031316
+:61:1405270527C1236,NTRF573473 20150821//150821
+:86:/TYPE/0568/VIR EUROPEEN SEPA RECU/CODE/FR/18/REMI/ASTREINTES/INTE
+RVENTION A. BOY/EREF/573473-20140527-000031317/ORDP//NAME/CA TECH
+NOLOGIES/IREF/CAT-573473-20140527-000031317
+:61:1405270527C10357,2NTRF573473 20150821//150821
+:86:/TYPE/0568/VIR EUROPEEN SEPA RECU/CODE/FR/18/REMI/PRESTATIONS D.
+CAPRISTO/EREF/573473-20140527-000031319/ORDP//NAME/CA TECHNOLOGIE
+S/IREF/CAT-573473-20140527-000031319
+:90D:0EUR0,
+:90C:5EUR43357,2
+-}{5:}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            

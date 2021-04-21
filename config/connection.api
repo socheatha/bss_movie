@@ -1,0 +1,31 @@
+<?php
+	$isHosted = false;
+	if($isHosted){
+		$servername = "localhost";
+		$username = "posila";
+		$password = "YnolFL-fwN?3";
+		$database = "posila_sonthormuk";
+		$mysqldump = "/usr/bin/mysqldump";
+	}else{
+        define('SERVER', "localhost");
+        define('USER', "root");
+        define('PASSWORD', '');
+        define('DATABASE', "bss_movie");
+
+		ini_set('display_errors', '1');
+		ini_set('log_errors', '0');
+		ini_set('error_log', './');
+	}
+
+	// Create connection
+	$conn = mysqli_connect(SERVER, USER, PASSWORD, DATABASE);
+
+	// Check connection
+	if (!$conn) die("Connection failed: " . mysqli_connect_error());
+
+	mysqli_set_charset($conn,"utf8");
+	mysqli_query($conn, "SET SESSION sql_mode = ''");
+	session_start();
+	date_default_timezone_set("Asia/Bangkok");
+
+?>

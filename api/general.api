@@ -19,7 +19,8 @@
 		}
 		unset($urls);
 	}
-	function bss_include($urls, $segment = '', $extra_js = []){
+	function bss_include($urls, $segment = '', $extra_js = [], $extract_variable = []){
+		extract($extract_variable);
 		if($urls && !is_array($urls)) $urls = [$urls];
 		if(sizeof($extra_js) && is_array($extra_js)) $urls = array_merge($urls, $extra_js);
 		foreach ($urls as $key => $url) {
@@ -27,8 +28,8 @@
 		}
 		unset($urls, $extra_js);
 	}
-	function bss_include_layout($urls, $extra_js = []){
-		bss_include($urls,'admin/layout/', $extra_js);
+	function bss_include_layout($urls, $extra_js = [], $extract_variable = []){
+		bss_include($urls,'admin/layout/', $extra_js, $extract_variable);
 		unset($urls, $extra_js);
 	}
 	function bss_link_admin($url){
@@ -36,4 +37,59 @@
 	}
 	function bss_path($url){
 		return ABSOLUTE_PATH . $url;
+	}
+
+
+	// ============================
+	function bss_thumbnail($movie = []) {
+		if (!$movie || empty($movie['thumbnail'])) $movie['thumbnail'] = bss_asset('landing/shattered.png', 'img');
+		echo '
+			<a href="' . bss_path('detail.php?id=' . $movie['id']) . '">
+				<div class="ibox">
+					<div class="ibox-content product-box">
+						<div class="product-imitation embed-responsive embed-responsive-4by3" style="background-position: center center; background-size: cover; background-image: url(' . $movie['thumbnail'] . ')">                        
+						</div>
+						<div class="product-desc">
+							<span class="product-price" style="background-color: ' . $movie['color'] . '">' . $movie['cate_name_en'] . '</span>
+							<!-- <small class="text-muted">Category</small> -->
+							<a href="#" class="product-name" title="' . $movie['name_en'] . '" style="height: 50px; max-height: 50px; overflow: hidden;">' . $movie['name_en'] .'</a>
+							<div class="small m-t-xs">
+								Many desktop publishing packages and web page editors now.
+							</div>
+							<div class="m-t text-center">
+								<a href="' . bss_path('detail.php?id=' . $movie['id']) . '" class="btn btn-xs btn-outline btn-primary">Watch <i class="fa fa-play"></i> | Download <i class="fa fa-download"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		';
+	}
+
+	function get_catories() {
+		global $conn;
+		$sql = "SELECT id, name_en from categories ORDER BY id ASC";
+		$result = $conn->query($sql);
+
+		$T_result = [];
+		if ($result->num_rows == 0) return $T_result;
+		while($row = $result->fetch_assoc()) {
+			$T_result[] = $row;
+		}
+		return $T_result;
+	}
+
+	function get_movies() {
+		global $conn;
+		$sql = "SELECT movies.id, movies.name_en, movies.thumbnail, categories.name_en cate_name_en, categories.color from movies, categories
+			WHERE movies.category_id=categories.id
+			ORDER BY id ASC";
+		$result = $conn->query($sql);
+
+		$T_result = [];
+		if ($result->num_rows == 0) return $T_result;
+		while($row = $result->fetch_assoc()) {
+			$T_result[] = $row;
+		}
+		return $T_result;
 	}

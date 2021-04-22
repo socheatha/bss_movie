@@ -9596,3 +9596,17 @@ body.md-skin {
     margin: 0;
   }
 }
+
+
+
+
+
+/* ============================OUN STYLE============================ */
+.main_title_detail{
+  color: #444;
+  font-weight: bold;
+  font-size: 24px;
+}
+.main_sub_title_detail{
+  font-size: 14px;
+}

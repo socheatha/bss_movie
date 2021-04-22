@@ -47,14 +47,16 @@
 			<a href="' . bss_path('detail.php?id=' . $movie['id']) . '">
 				<div class="ibox">
 					<div class="ibox-content product-box">
-						<div class="product-imitation embed-responsive embed-responsive-4by3" style="background-position: center center; background-size: cover; background-image: url(' . $movie['thumbnail'] . ')">                        
+						<div class="product-imitation embed-responsive embed-responsive-4by3" style="background-position: center center; background-size: cover; background-image: url(\'' . $movie['thumbnail'] . '\')">                        
 						</div>
 						<div class="product-desc">
 							<span class="product-price" style="background-color: ' . $movie['color'] . '">' . $movie['cate_name_en'] . '</span>
 							<!-- <small class="text-muted">Category</small> -->
 							<a href="#" class="product-name" title="' . $movie['name_en'] . '" style="height: 50px; max-height: 50px; overflow: hidden;">' . $movie['name_en'] .'</a>
 							<div class="small m-t-xs">
-								Many desktop publishing packages and web page editors now.
+								Date : ' . bss_standard_date($movie['created_at']) . ' | 
+								View : ' . bss_count_K($movie['view_count'] ?? 0) . ' |
+								EP : ' . bss_count_K($movie['ep_count'] ?? 0) . '
 							</div>
 							<div class="m-t text-center">
 								<a href="' . bss_path('detail.php?id=' . $movie['id']) . '" class="btn btn-xs btn-outline btn-primary">Watch <i class="fa fa-play"></i> | Download <i class="fa fa-download"></i></a>
@@ -81,7 +83,9 @@
 
 	function get_movies() {
 		global $conn;
-		$sql = "SELECT movies.id, movies.name_en, movies.thumbnail, categories.name_en cate_name_en, categories.color from movies, categories
+		$sql = "SELECT 
+			movies.id, movies.name_en, movies.thumbnail, movies.created_at, movies.view_count, movies.ep_count,
+			categories.name_en cate_name_en, categories.color from movies, categories
 			WHERE movies.category_id=categories.id
 			ORDER BY id ASC";
 		$result = $conn->query($sql);
@@ -93,3 +97,64 @@
 		}
 		return $T_result;
 	}
+
+	function get_movie_detail($id = 1) {
+		global $conn;
+		$sql = "SELECT 
+			movies.id, movies.name_en, movies.thumbnail, movies.created_at, movies.view_count, movies.ep_count, movies.video_path,
+			categories.name_en cate_name_en, categories.color, categories.description cate_description
+		FROM movies, categories
+		WHERE movies.category_id=categories.id and movies.id=" . $id;
+		$result = $conn->query($sql);
+
+		// if select not found return empty array
+		$T_result = [];
+		if ($result->num_rows == 0) return $T_result;
+		$T_result['movie'] = $result->fetch_assoc();
+
+		// get video playlist
+		$movie_path    = BASE_PATH . 'data/movie/' . $T_result['movie']['video_path'];
+		$dir_list = array_diff(scandir($movie_path), array('.', '..'));
+		natcasesort($dir_list);
+		$T_playlist = [];
+		foreach ($dir_list as $playlist) {
+			$T_playlist[] = $playlist;
+		}
+		$T_result['playlist'] = $T_playlist;
+
+		// update EP number and count view + 1 
+		$ep_count = 5;
+		$view_count = $T_result['movie']['view_count'] + 1;
+		$conn->query("UPDATE movies SET ep_count = $ep_count, view_count = $view_count WHERE id = $id");
+
+		return $T_result;
+	}
+
+	function bss_standard_date($date) {
+		return date("d/F/Y", strtotime($date));
+	}
+
+	function bss_count_K($num) {
+
+		if($num>1000) {
+	  
+			  $x = round($num);
+			  $x_number_format = number_format($x);
+			  $x_array = explode(',', $x_number_format);
+			  $x_parts = array('k', 'm', 'b', 't');
+			  $x_count_parts = count($x_array) - 1;
+			  $x_display = $x;
+			  $x_display = $x_array[0] . ((int) $x_array[1][0] !== 0 ? '.' . $x_array[1][0] : '');
+			  $x_display .= $x_parts[$x_count_parts - 1];
+	  
+			  return $x_display;
+	  
+		}
+	  
+		return $num;
+	}
+
+	function bss_remove_extension($file_name) {
+		return preg_replace('/\\.[^.\\s]{3,4}$/', '', $file_name);
+	}
+

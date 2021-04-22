@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Empty Page</title>
-    <?php bss_get_style(['bootstrap.min.css', 'font-awesome/css' => 'font-awesome.css', 'animate.css', 'style.css']); ?>
+    <title><?php echo $page_title ?? 'Jeat Movie' ?></title>
+    <?php bss_get_style(['bootstrap.min.css', 'font-awesome/css' => 'font-awesome.css', 'plugins/jsTree/style.min.css', 'animate.css', 'style.css']); ?>
 </head>
 
 <body class="">

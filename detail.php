@@ -2,16 +2,29 @@
     require_once 'autoload.api';
     $movie_id = $_GET['id'] ?? 1;
     $movie = get_movie_detail($movie_id);
+    $_GET['category'] = $movie['movie']['cate_id'];
 
     $file_name = $_GET['playlist'] ?? $movie['playlist'][0];
 ?>
 
-<?php bss_include_layout('header.layout', [], ['is_front_end' => 1, 'page_title' => 'Jeat Movie | ' . $movie['movie']['name_en']]); ?>        
+<?php bss_include_layout('header.layout', [], ['is_front_end' => 1,  'page_title' => 'Jeat Movie | ' . $movie['movie']['name_en']]); ?>
+    <!-- cdnjs : use a specific version of Video.js (change the version numbers as necessary) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.10.2/video-js.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.10.2/video.min.js"></script>
     <div class="row">
         <div class="col-md-9">
-            <video width="100%" controls>
+            <video
+                id="my-player"
+                class="video-js"
+                controls
+                preload="auto"
+                data-setup='{"fluid": true}'
+            >
                 <source src="<?php echo bss_path('data/movie/' . $movie['movie']['video_path'] . '/' . $file_name) ?>" type="video/mp4">
-                Your browser does not support the video tag.
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser
+                </p>
             </video>
             <h1 class="main_title_detail"><?php echo $movie['movie']['name_en']; ?> | EP-<?php echo bss_remove_extension($file_name); ?></h1>
             <h2 class="main_sub_title_detail"><?php echo $movie['movie']['cate_name_en']; ?> | <?php echo $movie['movie']['cate_description']; ?></h2>

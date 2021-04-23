@@ -1,5 +1,7 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div style="width: 100%;">
         <!-- <img src="https://www.icao.int/SiteAssets/Rotators/AVSEC_2017-ENGLISH-ICAO_Public-Website_Homepage_top-banner-images.png" class="img" width="100%"> -->
+        <br>
+        <input type="text" class="form form-control" placeholder="searching ..."/>
     </div>
 </div>

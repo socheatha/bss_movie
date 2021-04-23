@@ -3,9 +3,9 @@
 ?>
 
 <?php bss_include_layout('header.layout'); ?>
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="../../lib/elFinder-2.1/css/elfinder.min.css">
-    <link rel="stylesheet" type="text/css" href="../../lib/elFinder-2.1/css/theme.css">
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="../../lib/elFinder-2.1/css/elfinder.min.css">
+<link rel="stylesheet" type="text/css" href="../../lib/elFinder-2.1/css/theme.css">
     <div id="elfinder"></div>
     <script type="text/javascript" charset="utf-8">
         var endLoadjs = function(){
@@ -59,6 +59,6 @@
         }
     </script>
 <?php bss_include_layout('footer.layout'); ?>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <script src="../../lib/elFinder-2.1/js/elfinder.min.js"></script>
-        <script src="../../lib/elFinder-2.1/js/extras/editors.default.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="../../lib/elFinder-2.1/js/elfinder.min.js"></script>
+<script src="../../lib/elFinder-2.1/js/extras/editors.default.min.js"></script>

@@ -81,12 +81,15 @@
 		return $T_result;
 	}
 
-	function get_movies() {
+	function get_movie_list($category = null) {
 		global $conn;
+		$where_clause = '';
+		if ($category) $where_clause .= " AND movies.category_id = " . $category . " ";
+
 		$sql = "SELECT 
-			movies.id, movies.name_en, movies.thumbnail, movies.created_at, movies.view_count, movies.ep_count,
-			categories.name_en cate_name_en, categories.color from movies, categories
-			WHERE movies.category_id=categories.id
+			movies.id, movies.name_en, movies.name_kh, movies.thumbnail, movies.video_path, movies.created_at, movies.view_count, movies.ep_count, movies.description, movies.keywords,
+			categories.name_en cate_name_en, categories.name_kh cate_name_kh, categories.color from movies, categories
+			WHERE movies.category_id=categories.id {$where_clause}
 			ORDER BY id ASC";
 		$result = $conn->query($sql);
 
@@ -102,7 +105,7 @@
 		global $conn;
 		$sql = "SELECT 
 			movies.id, movies.name_en, movies.thumbnail, movies.created_at, movies.view_count, movies.ep_count, movies.video_path,
-			categories.name_en cate_name_en, categories.color, categories.description cate_description
+			categories.id cate_id, categories.name_en cate_name_en, categories.color, categories.description cate_description
 		FROM movies, categories
 		WHERE movies.category_id=categories.id and movies.id=" . $id;
 		$result = $conn->query($sql);
@@ -123,7 +126,7 @@
 		$T_result['playlist'] = $T_playlist;
 
 		// update EP number and count view + 1 
-		$ep_count = 5;
+		$ep_count = sizeof($T_playlist);
 		$view_count = $T_result['movie']['view_count'] + 1;
 		$conn->query("UPDATE movies SET ep_count = $ep_count, view_count = $view_count WHERE id = $id");
 

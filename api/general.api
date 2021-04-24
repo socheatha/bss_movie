@@ -47,7 +47,7 @@
 			<a href="' . bss_path('detail.php?id=' . $movie['id']) . '">
 				<div class="ibox">
 					<div class="ibox-content product-box">
-						<div class="product-imitation embed-responsive embed-responsive-4by3" style="background-position: center center; background-size: cover; background-image: url(\'' . $movie['thumbnail'] . '\')">                        
+						<div class="product-imitation embed-responsive embed-responsive-4by3" style="background-position: center center; background-size: cover; background-image: url(\'' . bss_path('data/movie/' . $movie['video_path'] . '/' . $movie['thumbnail']) . '\')">                        
 						</div>
 						<div class="product-desc">
 							<span class="product-price" style="background-color: ' . $movie['color'] . '">' . $movie['cate_name_en'] . '</span>
@@ -70,7 +70,7 @@
 
 	function get_catories() {
 		global $conn;
-		$sql = "SELECT id, name_en from categories ORDER BY id ASC";
+		$sql = "SELECT id, name_en, name_kh from categories ORDER BY id ASC";
 		$result = $conn->query($sql);
 
 		$T_result = [];
@@ -104,7 +104,7 @@
 	function get_movie_detail($id = 1) {
 		global $conn;
 		$sql = "SELECT 
-			movies.id, movies.name_en, movies.thumbnail, movies.created_at, movies.view_count, movies.ep_count, movies.video_path,
+			movies.id, movies.name_en, movies.name_kh, movies.description, movies.keywords, movies.thumbnail, movies.created_at, movies.view_count, movies.ep_count, movies.video_path,
 			categories.id cate_id, categories.name_en cate_name_en, categories.color, categories.description cate_description
 		FROM movies, categories
 		WHERE movies.category_id=categories.id and movies.id=" . $id;
@@ -116,12 +116,15 @@
 		$T_result['movie'] = $result->fetch_assoc();
 
 		// get video playlist
-		$movie_path    = BASE_PATH . 'data/movie/' . $T_result['movie']['video_path'];
-		$dir_list = array_diff(scandir($movie_path), array('.', '..'));
-		natcasesort($dir_list);
 		$T_playlist = [];
-		foreach ($dir_list as $playlist) {
-			$T_playlist[] = $playlist;
+		$movie_path    = BASE_PATH . 'data/movie/' . $T_result['movie']['video_path'];
+		if (file_exists($movie_path)) {
+			$dir_list = array_diff(scandir($movie_path), array('.', '..'));
+			natcasesort($dir_list);
+			foreach ($dir_list as $playlist) {
+				if (!preg_match('/^.*\.(mp4|mov)$/i', $playlist)) continue;
+				$T_playlist[] = $playlist;
+			}
 		}
 		$T_result['playlist'] = $T_playlist;
 
@@ -161,3 +164,51 @@
 		return preg_replace('/\\.[^.\\s]{3,4}$/', '', $file_name);
 	}
 
+	function bss_movie_playlist($movie, $playlist, $selected = null) {
+		$return = '<div id="jstree1"><ul><li class="jstree-open">' . $movie['name_en'] . '<ul>';						
+		foreach ($playlist as $pl) {
+			echo  $pl;			
+			$return .= '<li class="' . ($pl == $selected ? 'text-navy' : '') . '">
+				<a href="' . bss_path('detail.php?id=' . $movie['id']) . '&playlist=' . $pl . '">
+					' . $movie['name_en'] . ' | EP-' . bss_remove_extension($pl) . ' ' . ($pl == $selected ? '(Playing)' : '') . '
+				</a>
+			</li>';
+		}
+		$return .= '</ul></li></ul></div>';
+		return $return;
+	}
+
+	function bss_convert_fields_to_statement_update($list_field = []) {
+		global $conn;
+		$stm_part = '';
+        foreach ($list_field as $variable) {
+            ${$variable} = $conn->real_escape_string($_POST[$variable] ?? '');
+            $stm_part .= (" " . $variable . "='" . ${$variable} . "', ");
+		}
+		return rtrim($stm_part, ', ');
+	}
+
+	function bss_extract_add_data($list_field = []) {
+		global $conn;
+		$stm_part = [];
+        foreach ($list_field as $variable) {
+            ${$variable} = $conn->real_escape_string($_POST[$variable] ?? '');
+            $stm_part[$variable] = ${$variable};
+		}
+		return $stm_part;
+	}
+
+	function bss_upload_image($file, $new_path, $old_file = null) {
+		$result = '';
+		if ($file && !empty($file["name"])) {
+			$file_name = date("Ymd") . "_" . rand(1111, 9999) . ".png";
+			if (!file_exists(BASE_PATH . 'data/movie/' . $new_path)) mkdir(BASE_PATH . 'data/movie/' . $new_path);
+            if (move_uploaded_file($file['tmp_name'], BASE_PATH . 'data/movie/' . $new_path . '/' . $file_name)) {
+                if ($old_file && file_exists(BASE_PATH . 'data/movie/' . $old_file) && is_file(BASE_PATH . 'data/movie/' . $old_file)) {
+                    unlink(BASE_PATH . 'data/movie/' . $old_file);
+                }
+                $result = $file_name;
+            }
+        }
+		return $result;
+	}

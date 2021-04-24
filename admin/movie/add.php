@@ -2,27 +2,27 @@
     require_once '../../autoload.api';
     
     if (isset($_POST['btn_save'])) {
-        $stm_part = bss_convert_fields_to_statement_update(['name_en', 'name_kh', 'video_path', 'category_id', 'keywords', 'description']);
-        $new_uploaded = bss_upload_image($_FILES['thumbnail'], $_POST['video_path'], $_POST['old_file']);
-        if ($new_uploaded) {
-            $stm_part .= " , thumbnail='" . $new_uploaded . "'";
-        }
+        $post = bss_extract_add_data(['name_en', 'name_kh', 'video_path', 'category_id', 'keywords', 'description']);
+        $thumbnail = bss_upload_image($_FILES['thumbnail'], $_POST['video_path']);        
 
-        $req = "UPDATE movies SET " . $stm_part . " WHERE id=" . $_GET['id'];
+        $req = "INSERT INTO movies (name_en, name_kh, video_path, category_id, keywords, description, thumbnail) 
+                VALUES ('" . $post['name_en'] . "', '" . $post['name_kh'] . "', '" . $post['video_path'] . "', '" . $post['category_id'] . "', '" . $post['keywords'] . "', '" . $post["description"] . "', '" . $thumbnail . "')";
         if ($conn->query($req)) {
-            echo '<script>alert("Successfull");</script>';
+            echo '<script>
+                alert("Successfull");
+                window.location.replace("edit.php?id=' . $conn->insert_id . '");
+            </script>';
+        } else {
+            echo $conn->errno;
         }
     }
-
-    $movie_id = $_GET['id'] ?? 1;
-    $movie = get_movie_detail($movie_id);
 ?>
 <?php bss_include_layout('header.layout'); ?>
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Movie <small>Upate information</small></h5>                
+                <h5>Movie <small>Add information</small></h5>                
             </div>
             <div class="ibox-content">
                 <form method="post" action="" enctype="multipart/form-data">
@@ -31,8 +31,8 @@
                             <div class="form-group  row"><label class="col-sm-3 col-form-label">Name EN | Name KH</label>
                                 <div class="col-sm-9">
                                     <div class="row">
-                                        <div class="col-sm-6"><input type="text" name="name_en" class="form-control"placeholder="name english ..." value="<?php echo $movie['movie']['name_en'] ?>"></div>
-                                        <div class="col-sm-6"><input type="text" name="name_kh" class="form-control" placeholder="name khmer ..." value="<?php echo $movie['movie']['name_kh'] ?>"></div>
+                                        <div class="col-sm-6"><input type="text" name="name_en" class="form-control"placeholder="name english ..." value="<?php echo @$_POST['name_en'] ?>"></div>
+                                        <div class="col-sm-6"><input type="text" name="name_kh" class="form-control" placeholder="name khmer ..." value="<?php echo @$_POST['name_kh'] ?>"></div>
                                     </div>
                                 </div>
                             </div>
@@ -40,14 +40,14 @@
                                 <div class="col-sm-9">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <input type="text" name="video_path" class="form-control" placeholder="path or directory id ..." value="<?php echo $movie['movie']['video_path'] ?>">
+                                            <input type="text" name="video_path" class="form-control" placeholder="path or directory id ..." value="<?php echo @$_POST['video_path'] ?: (date('YmdHis') . rand(1111,9999)) ?>">
                                         </div>
                                         <div class="col-sm-6">
                                             <select name="category_id" class="form-control m-b" name="account" required>
-                                                <option>====== category ======</option>
+                                                <option value="">====== category ======</option>
                                                 <?php
                                                     foreach (get_catories() as $category) {
-                                                        echo '<option ' . ($category['id'] == $movie['movie']['cate_id'] ? 'selected' : '') . ' value="' . $category['id'] . '">' . $category['name_en'] . ' :: ' . $category['name_kh'] . '</option>';
+                                                        echo '<option ' . ($category['id'] == @$_POST['category_id'] ? 'selected' : '') . ' value="' . $category['id'] . '">' . $category['name_en'] . ' :: ' . $category['name_kh'] . '</option>';
                                                     }
                                                 ?>        
                                             </select>
@@ -58,23 +58,19 @@
                             </div>
                             <div class="form-group  row"><label class="col-sm-3 col-form-label">Keywords</label>
                                 <div class="col-sm-9">
-                                    <input class="tagsinput form-control" type="text" name="keywords" value="<?php echo $movie['movie']['keywords'] ?>"/>
+                                    <input class="tagsinput form-control" type="text" name="keywords" value="<?php echo @$_POST['keywords'] ?>"/>
                                 </div>
                             </div>
                             <div class="form-group  row"><label class="col-sm-3 col-form-label">Description</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" name="description" placeholder="description ..."><?php echo $movie['movie']['description'] ?></textarea>
+                                    <textarea class="form-control" name="description" placeholder="description ..."><?php echo @$_POST['description'] ?></textarea>
                                 </div>
-                            </div>
-                            <div class="ibox-content">
-                                <?php echo bss_movie_playlist($movie['movie'], $movie['playlist']); ?>
-                            </div>
+                            </div>                
                         </div>
                         <div class="col-sm-4">
                             <label class="col-form-label">Thumbnail</label>
-                            <img src="<?php echo bss_path('data/movie/' . $movie['movie']['video_path'] . "/" . $movie['movie']['thumbnail']) ?>" class="form-control" alt="" id="img_preview">
+                            <img src="<?php echo bss_asset('landing/shattered.png', 'img') ?>" class="form-control" alt="" id="img_preview">
                             <input type="file" name="thumbnail" class="form-control" id="file_preview">           
-                            <input type="hidden" name="old_file" placeholder="use existing imge ..." class="form-control" value="<?php echo $movie['movie']['video_path'] . "/" . $movie['movie']['thumbnail']; ?>">           
                         </div>
                     </div>                                
                     <div class="form-group">

@@ -12,7 +12,7 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Basic Data Tables example with responsive plugin</h5>
+                <h5><a href="add.php" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add Movie</a> Basic Data Tables example with responsive plugin</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -61,9 +61,9 @@
                                     echo '<tr class="gradeX">
                                         <td class="text-center">' . ++ $i  . '</td>
                                         <td class="text-center">
-                                            <img src="' . $movie['thumbnail'] . '" width="30px" />
+                                            <a href="' . bss_path('data/movie/' . $movie['video_path'] . '/' . $movie['thumbnail']) . '" title="Image from Unsplash" data-gallery=""><i class="fa fa-image fa-2x"></i></a>
                                         </td>
-                                        <td>' . $movie["name_en"] . '<br/>' . $movie["name_kh"] . '</td>
+                                        <td><a href="' . bss_path('detail.php?id=' . $movie['id']) . '" target="_blank">' . $movie["name_en"] . '<br/>' . $movie["name_kh"] . '</a></td>
                                         <td>' .$movie["video_path"] . '</td>
                                         <th class="text-center">' .bss_count_K($movie["view_count"]) .'</th>
                                         <th class="text-center">' .bss_count_K($movie["ep_count"]) .'</th>
@@ -83,6 +83,17 @@
                         <tfoot><?php $table_header; ?></tfoot>
                     </table>
                 </div>
+
+                <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                <div id="blueimp-gallery" class="blueimp-gallery">
+                    <div class="slides"></div>
+                    <h3 class="title"></h3>
+                    <a class="prev">‹</a>
+                    <a class="next">›</a>
+                    <a class="close">×</a>
+                    <a class="play-pause"></a>
+                    <ol class="indicator"></ol>
+                </div>                                
 
             </div>
         </div>

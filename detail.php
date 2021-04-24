@@ -4,7 +4,7 @@
     $movie = get_movie_detail($movie_id);
     $_GET['category'] = $movie['movie']['cate_id'];
 
-    $file_name = $_GET['playlist'] ?? $movie['playlist'][0];
+    $file_name = $_GET['playlist'] ?? $movie['playlist'][0] ?? 0;
 ?>
 
 <?php bss_include_layout('header.layout', [], ['is_front_end' => 1,  'page_title' => 'Jeat Movie | ' . $movie['movie']['name_en']]); ?>
@@ -49,24 +49,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div id="jstree1">
-                            <ul>
-                                <li class="jstree-open"><?php echo $movie['movie']['name_en']; ?>
-                                    <ul>
-                                        <?php
-                                            foreach ($movie['playlist'] as $playlist) {
-                                                echo '<li class="' . ($playlist == $file_name ? 'text-navy' : '') . '">
-                                                    <a href="' . bss_path('detail.php?id=' . $movie['movie']['id']) . '&playlist=' . $playlist . '">
-                                                        ' . $movie['movie']['name_en'] . ' | EP-' . bss_remove_extension($playlist) . ' ' . ($playlist == $file_name ? '(Playing)' : '') . '
-                                                    </a>
-                                                </li>';
-                                            }
-                                        ?>
-                                    </ul>                                     
-                                </li>
-                            </ul>
-                        </div>
-
+                        <?php echo bss_movie_playlist($movie['movie'], $movie['playlist'], $file_name); ?>
                     </div>
                 </div>
             </div>

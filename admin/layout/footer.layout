@@ -10,7 +10,7 @@
 
         </div>
         </div>
-    <?php bss_get_script(['jquery-3.1.1.min.js', 'popper.min.js', 'bootstrap.js', 'plugins/metisMenu/jquery.metisMenu.js', 'plugins/slimscroll/jquery.slimscroll.min.js', 'plugins/dataTables/datatables.min.js', 'plugins/dataTables/dataTables.bootstrap4.min.js',  'inspinia.js', 'plugins/pace/pace.min.js', 'plugins/jsTree/jstree.min.js']); ?>
+    <?php bss_get_script(['jquery-3.1.1.min.js', 'popper.min.js', 'bootstrap.js', 'plugins/metisMenu/jquery.metisMenu.js', 'plugins/slimscroll/jquery.slimscroll.min.js', 'plugins/dataTables/datatables.min.js', 'plugins/dataTables/dataTables.bootstrap4.min.js',  'inspinia.js', 'plugins/pace/pace.min.js', 'plugins/blueimp/jquery.blueimp-gallery.min.js',  'plugins/jsTree/jstree.min.js', 'plugins/bootstrap-tagsinput/bootstrap-tagsinput.js']); ?>
 
     <script type="text/javascript">
         $(document).ready(function(){

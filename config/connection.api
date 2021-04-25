@@ -1,10 +1,10 @@
 <?php
-	$isHosted = false;
+	$isHosted = !in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1', 'localhost']);
 	if($isHosted){
-		$servername = "localhost";
-		$username = "posila";
-		$password = "YnolFL-fwN?3";
-		$database = "posila_sonthormuk";
+        define('SERVER', "localhost");
+        define('USER', "bssdnaxb_socheatha");
+        define('PASSWORD', 'socheatha789');
+        define('DATABASE', "bssdnaxb_movie");
 		$mysqldump = "/usr/bin/mysqldump";
 	}else{
         define('SERVER', "localhost");

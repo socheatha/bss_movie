@@ -47,7 +47,7 @@
 			<a href="' . bss_path('detail.php?id=' . $movie['id']) . '">
 				<div class="ibox">
 					<div class="ibox-content product-box">
-						<div class="product-imitation embed-responsive embed-responsive-4by3" style="background-position: center center; background-size: cover; background-image: url(\'' . bss_path('data/movie/' . $movie['video_path'] . '/' . $movie['thumbnail']) . '\')">                        
+						<div class="product-imitation embed-responsive embed-responsive-4by3" style="background-position: center center; background-size: cover; background-image: url(\'' . (bss_is_cdn($movie['thumbnail']) ? $movie['thumbnail'] : bss_path('data/movie/' . $movie['video_path'] . '/' . $movie['thumbnail'])) . '\')">                        
 						</div>
 						<div class="product-desc">
 							<span class="product-price" style="background-color: ' . $movie['color'] . '">' . $movie['cate_name_en'] . '</span>
@@ -115,9 +115,18 @@
 		if ($result->num_rows == 0) return $T_result;
 		$T_result['movie'] = $result->fetch_assoc();
 
-		// get video playlist
-		$T_playlist = [];
+		// download thumbnail if cdn
 		$movie_path    = BASE_PATH . 'data/movie/' . $T_result['movie']['video_path'];
+		if (bss_is_cdn($T_result['movie']['thumbnail'])) {
+			if (!file_exists($movie_path)) mkdir($movie_path);
+			$file_name = bss_random();
+			if (copy($T_result['movie']['thumbnail'], $movie_path . '/' . $file_name)) {
+				$T_result['movie']['thumbnail'] = $file_name;
+			}
+		}
+
+		// get video playlist
+		$T_playlist = [];		
 		if (file_exists($movie_path)) {
 			$dir_list = array_diff(scandir($movie_path), array('.', '..'));
 			natcasesort($dir_list);
@@ -131,7 +140,7 @@
 		// update EP number and count view + 1 
 		$ep_count = sizeof($T_playlist);
 		$view_count = $T_result['movie']['view_count'] + 1;
-		$conn->query("UPDATE movies SET ep_count = $ep_count, view_count = $view_count WHERE id = $id");
+		$conn->query("UPDATE movies SET ep_count = $ep_count, view_count = $view_count, thumbnail='" . $T_result['movie']['thumbnail'] . "' WHERE id = $id");
 
 		return $T_result;
 	}
@@ -201,7 +210,7 @@
 	function bss_upload_image($file, $new_path, $old_file = null) {
 		$result = '';
 		if ($file && !empty($file["name"])) {
-			$file_name = date("Ymd") . "_" . rand(1111, 9999) . ".png";
+			$file_name = bss_random();
 			if (!file_exists(BASE_PATH . 'data/movie/' . $new_path)) mkdir(BASE_PATH . 'data/movie/' . $new_path);
             if (move_uploaded_file($file['tmp_name'], BASE_PATH . 'data/movie/' . $new_path . '/' . $file_name)) {
                 if ($old_file && file_exists(BASE_PATH . 'data/movie/' . $old_file) && is_file(BASE_PATH . 'data/movie/' . $old_file)) {
@@ -211,4 +220,14 @@
             }
         }
 		return $result;
+	}
+
+	function bss_is_cdn($link) {
+		return strpos($link, "http://") !== false || strpos($link, "https://") !== false;
+	}
+
+	function bss_random($type = 'image'){
+		if ($type == 'image') {
+			return date("Ymd") . "_" . rand(1111, 9999) . ".png";
+		}
 	}

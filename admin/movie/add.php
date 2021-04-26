@@ -3,7 +3,7 @@
     
     if (isset($_POST['btn_save'])) {
         $post = bss_extract_add_data(['name_en', 'name_kh', 'video_path', 'category_id', 'keywords', 'description']);
-        $thumbnail = bss_upload_image($_FILES['thumbnail'], $_POST['video_path']);        
+        $thumbnail = $_POST['thumbnail_link'] ?: bss_upload_image($_FILES['thumbnail'], $_POST['video_path']);        
 
         $req = "INSERT INTO movies (name_en, name_kh, video_path, category_id, keywords, description, thumbnail) 
                 VALUES ('" . $post['name_en'] . "', '" . $post['name_kh'] . "', '" . $post['video_path'] . "', '" . $post['category_id'] . "', '" . $post['keywords'] . "', '" . $post["description"] . "', '" . $thumbnail . "')";
@@ -70,7 +70,8 @@
                         <div class="col-sm-4">
                             <label class="col-form-label">Thumbnail</label>
                             <img src="<?php echo bss_asset('landing/shattered.png', 'img') ?>" class="form-control" alt="" id="img_preview">
-                            <input type="file" name="thumbnail" class="form-control" id="file_preview">           
+                            <input type="file" name="thumbnail" class="form-control" id="file_preview">   
+                            <input type="text" name="thumbnail_link" placeholder="use existing imge ..." class="form-control" value="">          
                         </div>
                     </div>                                
                     <div class="form-group">

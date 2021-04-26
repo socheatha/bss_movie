@@ -3,9 +3,12 @@
 <head>
 
     <meta charset="utf-8">
+    <title><?php echo $page_title ?? 'Jeat Movie' ?></title>
+    <meta name="description" content="<?php echo $description ?? 'Movies speak khmer free for you' ?>">
+    <meta name="keywords" content="<?php echo $keywords ?? 'khmer movie, movie speak khmer, chinese movie speak khmer' ?>">
+    <meta name="author" content="Socheatha Tey">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?php echo $page_title ?? 'Jeat Movie' ?></title>
     <?php bss_get_style(['bootstrap.min.css', 'plugins/bootstrap-tagsinput/bootstrap-tagsinput.css', 'font-awesome/css' => 'font-awesome.css', 'plugins/blueimp/css/blueimp-gallery.min.css', 'plugins/jsTree/style.min.css', 'plugins/dataTables/datatables.min.css', 'animate.css', 'style.css']); ?>
 </head>
 

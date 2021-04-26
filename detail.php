@@ -7,7 +7,7 @@
     $file_name = $_GET['playlist'] ?? $movie['playlist'][0] ?? 0;
 ?>
 
-<?php bss_include_layout('header.layout', [], ['is_front_end' => 1,  'page_title' => 'Jeat Movie | ' . $movie['movie']['name_en']]); ?>
+<?php bss_include_layout('header.layout', [], ['is_front_end' => 1,  'page_title' => 'Jeat Movie | ' . $movie['movie']['name_en'], 'keywords' => $movie['movie']['keywords'], 'description' => $movie['movie']['name_en']]); ?>
     <!-- cdnjs : use a specific version of Video.js (change the version numbers as necessary) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.10.2/video-js.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.10.2/video.min.js"></script>

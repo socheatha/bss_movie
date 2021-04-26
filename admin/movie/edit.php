@@ -3,7 +3,7 @@
     
     if (isset($_POST['btn_save'])) {
         $stm_part = bss_convert_fields_to_statement_update(['name_en', 'name_kh', 'video_path', 'category_id', 'keywords', 'description']);
-        $new_uploaded = bss_upload_image($_FILES['thumbnail'], $_POST['video_path'], $_POST['old_file']);
+        $new_uploaded = $_POST['thumbnail_link'] ?: bss_upload_image($_FILES['thumbnail'], $_POST['video_path'], $_POST['old_file']);
         if ($new_uploaded) {
             $stm_part .= " , thumbnail='" . $new_uploaded . "'";
         }
@@ -72,9 +72,10 @@
                         </div>
                         <div class="col-sm-4">
                             <label class="col-form-label">Thumbnail</label>
-                            <img src="<?php echo bss_path('data/movie/' . $movie['movie']['video_path'] . "/" . $movie['movie']['thumbnail']) ?>" class="form-control" alt="" id="img_preview">
+                            <img src="<?php echo (bss_is_cdn($movie['movie']['thumbnail']) ? $movie['movie']['thumbnail'] : bss_path('data/movie/' . $movie['movie']['video_path'] . "/" . $movie['movie']['thumbnail'])) ?>" class="form-control" alt="" id="img_preview">
                             <input type="file" name="thumbnail" class="form-control" id="file_preview">           
-                            <input type="hidden" name="old_file" placeholder="use existing imge ..." class="form-control" value="<?php echo $movie['movie']['video_path'] . "/" . $movie['movie']['thumbnail']; ?>">           
+                            <input type="hidden" name="old_file" class="form-control" value="<?php echo $movie['movie']['video_path'] . "/" . $movie['movie']['thumbnail']; ?>">           
+                            <input type="text" name="thumbnail_link" placeholder="use existing imge ..." class="form-control" value="">           
                         </div>
                     </div>                                
                     <div class="form-group">

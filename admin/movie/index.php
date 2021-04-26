@@ -61,7 +61,7 @@
                                     echo '<tr class="gradeX">
                                         <td class="text-center">' . ++ $i  . '</td>
                                         <td class="text-center">
-                                            <a href="' . bss_path('data/movie/' . $movie['video_path'] . '/' . $movie['thumbnail']) . '" title="Image from Unsplash" data-gallery=""><i class="fa fa-image fa-2x"></i></a>
+                                            <a href="' . (bss_is_cdn($movie['thumbnail']) ? $movie['thumbnail'] : bss_path('data/movie/' . $movie['video_path'] . '/' . $movie['thumbnail'])) . '" title="Image from Unsplash" data-gallery=""><i class="fa fa-image fa-2x"></i></a>
                                         </td>
                                         <td><a href="' . bss_path('detail.php?id=' . $movie['id']) . '" target="_blank">' . $movie["name_en"] . '<br/>' . $movie["name_kh"] . '</a></td>
                                         <td>' .$movie["video_path"] . '</td>

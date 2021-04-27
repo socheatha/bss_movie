@@ -6,7 +6,7 @@
                     <a href="<?php echo bss_path('index.php'); ?>"><img src="<?php echo bss_asset('bss_movie_logo.png', 'img/logo'); ?>" style="width: 100%;"/></a>
                 </li>
                 <li class="active">
-                    <a href="index.html"><i class="fa fa-play-circle"></i> <span class="nav-label">Movies</span> <span class="fa arrow"></span></a>
+                    <a><i class="fa fa-play-circle"></i> <span class="nav-label">Movies</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <?php
                             foreach (get_catories() as $caterory) {

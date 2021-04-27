@@ -42,29 +42,30 @@
 
 	// ============================
 	function bss_thumbnail($movie = []) {
+		$movie['color'] = $movie['color'] ?: '#1ab394';
 		if (!$movie || empty($movie['thumbnail'])) $movie['thumbnail'] = bss_asset('landing/shattered.png', 'img');
 		echo '
-			<a href="' . bss_path('detail.php?id=' . $movie['id']) . '">
-				<div class="ibox">
-					<div class="ibox-content product-box">
-						<div class="product-imitation embed-responsive embed-responsive-4by3" style="background-position: center center; background-size: cover; background-image: url(\'' . (bss_is_cdn($movie['thumbnail']) ? $movie['thumbnail'] : bss_path('data/movie/' . $movie['video_path'] . '/' . $movie['thumbnail'])) . '\')">                        
-						</div>
-						<div class="product-desc">
+			<div class="ibox">
+				<div class="ibox-content product-box">			
+					<div class="product-imitation" style="background-position: center center; background-size: cover; background-image: url(\'' . (bss_is_cdn($movie['thumbnail']) ? $movie['thumbnail'] : bss_path('data/movie/' . $movie['video_path'] . '/' . $movie['thumbnail'])) . '\')"></div>
+					<div class="product-desc">
+						<div class="category_card">
 							<span class="product-price" style="background-color: ' . $movie['color'] . '">' . $movie['cate_name_en'] . '</span>
-							<!-- <small class="text-muted">Category</small> -->
-							<a href="#" class="product-name" title="' . $movie['name_en'] . '" style="height: 50px; max-height: 50px; overflow: hidden;">' . $movie['name_en'] .'</a>
-							<div class="small m-t-xs">
-								Date : ' . bss_standard_date($movie['created_at']) . ' | 
-								View : ' . bss_count_K($movie['view_count'] ?? 0) . ' |
-								EP : ' . bss_count_K($movie['ep_count'] ?? 0) . '
-							</div>
-							<div class="m-t text-center">
-								<a href="' . bss_path('detail.php?id=' . $movie['id']) . '" class="btn btn-xs btn-outline btn-primary">Watch <i class="fa fa-play"></i> | Download <i class="fa fa-download"></i></a>
-							</div>
+							<div class="box_triangle" style="border-color: ' . $movie['color'] . ' transparent transparent transparent; opacity: 0.6"></div>
+						</div>
+						<!-- <small class="text-muted">Category</small> -->
+						<a href="' . bss_path('detail.php?id=' . $movie['id']) . '" class="product-name" title="' . $movie['name_en'] . '" style="height: 50px; max-height: 50px; overflow: hidden;">' . $movie['name_en'] .'</a>
+						<div class="small m-t-xs">
+							Date : ' . bss_standard_date($movie['created_at']) . ' | 
+							View : ' . bss_count_K($movie['view_count'] ?? 0) . ' |
+							EP : ' . bss_count_K($movie['ep_count'] ?? 0) . '
+						</div>
+						<div class="m-t text-center">
+							<a href="' . bss_path('detail.php?id=' . $movie['id']) . '" class="btn btn-xs btn-outline btn-primary">Watch <i class="fa fa-play"></i> | Download <i class="fa fa-download"></i></a>
 						</div>
 					</div>
 				</div>
-			</a>
+			</div>
 		';
 	}
 

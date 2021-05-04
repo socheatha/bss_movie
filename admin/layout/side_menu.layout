@@ -10,6 +10,7 @@
                     <ul class="nav nav-second-level collapse">
                         <?php
                             foreach (get_catories() as $caterory) {
+                                $_SESSION['bss_categories'][] = $caterory;
                                 echo '<li class="' . (!empty($_GET['category']) && $_GET['category'] == $caterory['id'] ? 'active' : '') . '">
                                     <a href="' . bss_path('index.php?category=' . $caterory['id']) . '">
                                         <i class="fa fa-long-arrow-right"></i>

@@ -47,7 +47,7 @@
 		echo '
 			<div class="ibox">
 				<div class="ibox-content product-box">			
-					<div class="product-imitation" style="background-position: center center; background-size: cover; background-image: url(\'' . (bss_is_cdn($movie['thumbnail']) ? $movie['thumbnail'] : bss_path('data/movie/' . $movie['video_path'] . '/' . $movie['thumbnail'])) . '\')"></div>
+					<div class="product-imitation lazy" data-src="' . (bss_is_cdn($movie['thumbnail']) ? $movie['thumbnail'] : bss_path('data/movie/' . $movie['video_path'] . '/' . $movie['thumbnail'])) . '" style="background-position: center center; background-size: cover;"></div>
 					<div class="product-desc">
 						<div class="category_card">
 							<span class="product-price" style="background-color: ' . $movie['color'] . '">' . $movie['cate_name_en'] . '</span>
@@ -71,7 +71,7 @@
 
 	function get_catories() {
 		global $conn;
-		$sql = "SELECT id, name_en, name_kh from categories ORDER BY id ASC";
+		$sql = "SELECT id, name_en, name_kh, color from categories ORDER BY id ASC";
 		$result = $conn->query($sql);
 
 		$T_result = [];
@@ -82,7 +82,7 @@
 		return $T_result;
 	}
 
-	function get_movie_list($category = null) {
+	function get_movie_list($category = null, $limit = 10000) {
 		global $conn;
 		$where_clause = '';
 		if ($category) $where_clause .= " AND movies.category_id = " . $category . " ";
@@ -91,7 +91,8 @@
 			movies.id, movies.name_en, movies.name_kh, movies.thumbnail, movies.video_path, movies.created_at, movies.view_count, movies.ep_count, movies.description, movies.keywords,
 			categories.name_en cate_name_en, categories.name_kh cate_name_kh, categories.color from movies, categories
 			WHERE movies.category_id=categories.id {$where_clause}
-			ORDER BY id ASC";
+			ORDER BY id ASC
+			LIMIT $limit";
 		$result = $conn->query($sql);
 
 		$T_result = [];
